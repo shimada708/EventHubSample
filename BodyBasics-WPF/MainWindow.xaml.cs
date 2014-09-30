@@ -16,6 +16,11 @@ namespace BodyBasicsWPF
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
+using Microsoft.ServiceBus.Messaging;
+    using Microsoft.ServiceBus;
+    using System.Configuration;
+    using System.Text;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Interaction logic for MainWindow
@@ -138,6 +143,11 @@ namespace BodyBasicsWPF
         private Stopwatch stopwatch = null;
 
         /// <summary>
+        /// Client for EventHubs
+        /// </summary>
+        private readonly EventHubClient _client;
+
+        /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
@@ -147,6 +157,16 @@ namespace BodyBasicsWPF
 
             // for Alpha, one sensor is supported
             this.kinectSensor = KinectSensor.Default;
+
+            var settings = new MessagingFactorySettings()
+            {
+                TokenProvider = TokenProvider.CreateSharedAccessSignatureTokenProvider(
+                    ConfigurationManager.AppSettings["ServiceBus.KeyName"], ConfigurationManager.AppSettings["ServiceBus.Key"]),
+                TransportType = TransportType.Amqp
+            };
+
+            var factory = MessagingFactory.Create(ServiceBusEnvironment.CreateServiceUri("sb", ConfigurationManager.AppSettings["ServiceBus.Namespace"], ""), settings);
+            _client = factory.CreateEventHubClient("logs");
 
             if (this.kinectSensor != null)
             {
@@ -480,6 +500,13 @@ namespace BodyBasicsWPF
         /// <param name="drawingContext">drawing context to draw to</param>
         private void DrawHand(HandState handState, Point handPosition, DrawingContext drawingContext)
         {
+            var eventData = new EventData(Encoding.Default.GetBytes(JsonConvert.SerializeObject(new HandStateEvent()
+            {
+                HandState = handState.ToString(),
+                MachineName = Environment.MachineName
+            })));
+            eventData.PartitionKey = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture);
+
             switch (handState)
             {
                 case HandState.Closed:
@@ -494,6 +521,8 @@ namespace BodyBasicsWPF
                     drawingContext.DrawEllipse(this.handLassoBrush, null, handPosition, HandSize, HandSize);
                     break;
             }
+
+            _client.SendAsync(eventData);
         }
 
         /// <summary>
