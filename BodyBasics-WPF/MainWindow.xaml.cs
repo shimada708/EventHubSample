@@ -120,7 +120,7 @@ using Microsoft.ServiceBus.Messaging;
         /// <summary>
         /// The time of the first frame received
         /// </summary>
-        private long startTime = 0;
+        private TimeSpan startTime = TimeSpan.Zero;
 
         /// <summary>
         /// Current status text to display
@@ -156,7 +156,7 @@ using Microsoft.ServiceBus.Messaging;
             this.stopwatch = new Stopwatch();
 
             // for Alpha, one sensor is supported
-            this.kinectSensor = KinectSensor.Default;
+            this.kinectSensor = KinectSensor.GetDefault();
 
             var settings = new MessagingFactorySettings()
             {
@@ -283,7 +283,7 @@ using Microsoft.ServiceBus.Messaging;
                 {
                     if (body != null)
                     {
-                        body.Dispose();
+                        //body.Dispose();
                     }
                 }
             }
@@ -304,7 +304,7 @@ using Microsoft.ServiceBus.Messaging;
         {
             BodyFrameReference frameReference = e.FrameReference;
 
-            if (this.startTime == 0)
+            if (this.startTime == TimeSpan.Zero)
             {
                 this.startTime = frameReference.RelativeTime;
             }
