@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHubSample.Console", "EventHubSample.Console\EventHubSample.Console.csproj", "{D365794F-1B1B-4A7C-A1C0-EE6416EA1E96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BodyBasics-WPF", "BodyBasics-WPF\BodyBasics-WPF.csproj", "{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +55,16 @@ Global
 		{D365794F-1B1B-4A7C-A1C0-EE6416EA1E96}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D365794F-1B1B-4A7C-A1C0-EE6416EA1E96}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D365794F-1B1B-4A7C-A1C0-EE6416EA1E96}.Release|x64.ActiveCfg = Release|Any CPU
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Debug|x64.ActiveCfg = Debug|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Debug|x64.Build.0 = Debug|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Release|Any CPU.ActiveCfg = Release|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Release|Mixed Platforms.Build.0 = Release|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Release|x64.ActiveCfg = Release|x64
+		{269A7B21-FBFE-4E7A-8BBE-C8DE2EC0D833}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
