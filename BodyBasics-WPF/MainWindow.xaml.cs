@@ -21,6 +21,7 @@ using Microsoft.ServiceBus.Messaging;
     using System.Configuration;
     using System.Text;
     using Newtonsoft.Json;
+    using EventHubSample.Shared.Contracts;
 
     /// <summary>
     /// Interaction logic for MainWindow
