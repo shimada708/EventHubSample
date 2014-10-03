@@ -522,7 +522,10 @@ using Microsoft.ServiceBus.Messaging;
                     break;
             }
 
-            _client.SendAsync(eventData);
+            if (handState.Equals(HandState.Open) || handState.Equals(HandState.Lasso) || handState.Equals(HandState.Closed))
+            {
+                _client.SendAsync(eventData);
+            }
         }
 
         /// <summary>
