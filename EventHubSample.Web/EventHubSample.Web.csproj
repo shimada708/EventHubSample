@@ -139,6 +139,12 @@
     <Compile Include="EventProcessors\HandStateCheckpointManager.cs" />
     <Compile Include="EventProcessors\HandStateEventProcessor.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventHubSample.Shared\EventHubSample.Shared.csproj">
+      <Project>{00af1392-de55-4ac5-960b-8665b0f31bd9}</Project>
+      <Name>EventHubSample.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
