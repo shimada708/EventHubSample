@@ -9,13 +9,12 @@ namespace EventHubSample.Web.Hubs
 {
     public class HandStateHub : Hub
     {
-        private readonly HandState _handState;
-
         public HandStateHub() : this(HandState.Instance) { }
 
-        public HandStateHub(HandState handState)
-        {
+        public HandStateHub(HandState handState) {
             _handState = handState;
         }
+    
+        private  HandState _handState { get; set; }
     }
 }

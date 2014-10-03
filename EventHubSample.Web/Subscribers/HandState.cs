@@ -16,16 +16,13 @@ namespace EventHubSample.Web.Subscribers
     public class HandState
     {
         private readonly static Lazy<HandState> _instance = new Lazy<HandState>(() => {
-            return new HandState(GlobalHost.ConnectionManager.GetHubContext<HandStateHub>().Clients);
+            return new HandState();
         });
-        
-        private IHubConnectionContext<dynamic> Clients { get; set; }
 
         private EventHubClient eventHubClient { get; set; }
         
-        private HandState(IHubConnectionContext<dynamic> clients)
+        private HandState()
         {
-            Clients = clients;
             eventHubClient = EventHubClient.CreateFromConnectionString(GetAmqpConnectionString(), ConfigurationManager.AppSettings["ServiceBus.Path"]);
             var defaultConsumerGroup = eventHubClient.GetDefaultConsumerGroup();
             EventHubDescription eventHub = NamespaceManager.CreateFromConnectionString(GetAmqpConnectionString()).GetEventHub(ConfigurationManager.AppSettings["ServiceBus.Path"]);

@@ -1,26 +1,40 @@
-﻿using Microsoft.ServiceBus.Messaging;
+﻿using EventHubSample.Shared.Contracts;
+using EventHubSample.Web.Hubs;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.ServiceBus.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EventHubSample.Web.EventProcessors
 {
     class HandStateEventProcessor :IEventProcessor
     {
-        public System.Threading.Tasks.Task CloseAsync(PartitionContext context, CloseReason reason)
+        private IHubConnectionContext<dynamic> Clients { get; set; }
+
+        public Task CloseAsync(PartitionContext context, CloseReason reason)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<object>(null);
         }
 
-        public System.Threading.Tasks.Task OpenAsync(PartitionContext context)
+        public Task OpenAsync(PartitionContext context)
         {
-            throw new NotImplementedException();
+            Clients = GlobalHost.ConnectionManager.GetHubContext<HandStateHub>().Clients;
+            return Task.FromResult<object>(null);
         }
 
-        public System.Threading.Tasks.Task ProcessEventsAsync(PartitionContext context, IEnumerable<EventData> messages)
+        public Task ProcessEventsAsync(PartitionContext context, IEnumerable<EventData> messages)
         {
-            throw new NotImplementedException();
+            foreach (var message in messages)
+            {
+                var tempData = Newtonsoft.Json.JsonConvert.DeserializeObject<HandStateEvent>(Encoding.Default.GetString(message.GetBytes()));
+                Clients.All.broadcastState(tempData.MachineName, tempData.HandState);
+            }
+
+            return Task.FromResult<object>(null);
         }
     }
 }
